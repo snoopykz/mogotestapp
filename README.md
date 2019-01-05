@@ -1,224 +1,154 @@
-# ZendSkeletonApplication
+CREATE TABLE `tb0101_teams` (
+  `tb0101_id` bigint(20) NOT NULL,
+  `tb0101_name` varchar(50) NOT NULL DEFAULT '',
+  `tb0101_group` char(1) NOT NULL DEFAULT 'A',
+  `tb0101_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Команды';
 
-## Introduction
+-- --------------------------------------------------------
 
-This is a skeleton application using the Zend Framework MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with Zend Framework.
+--
+-- Table structure for table `tb0102_matches`
+--
 
-## Installation using Composer
+CREATE TABLE `tb0102_matches` (
+  `tb0102_id` bigint(20) NOT NULL,
+  `tb0102_tb0101_id1` bigint(20) NOT NULL DEFAULT '0',
+  `tb0102_tb0101_id2` bigint(20) NOT NULL DEFAULT '0',
+  `tb0102_score1` int(11) NOT NULL DEFAULT '0',
+  `tb0102_score2` int(11) NOT NULL DEFAULT '0',
+  `tb0102_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-The easiest way to create a new Zend Framework project is to use
-[Composer](https://getcomposer.org/).  If you don't have it already installed,
-then please install as per the [documentation](https://getcomposer.org/doc/00-intro.md).
+-- --------------------------------------------------------
 
-To create your new Zend Framework project:
+--
+-- Table structure for table `tb0103_playoff`
+--
 
-```bash
-$ composer create-project -sdev zendframework/skeleton-application path/to/install
-```
+CREATE TABLE `tb0103_playoff` (
+  `tb0103_id` bigint(20) NOT NULL,
+  `tb0103_tb0101_id` bigint(20) NOT NULL DEFAULT '0',
+  `tb0103_score` int(11) NOT NULL DEFAULT '0',
+  `tb0103_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-Once installed, you can test it out immediately using PHP's built-in web server:
+-- --------------------------------------------------------
 
-```bash
-$ cd path/to/install
-$ php -S 0.0.0.0:8080 -t public/ public/index.php
-# OR use the composer alias:
-$ composer run --timeout 0 serve
-```
+--
+-- Table structure for table `tb0104_playoff`
+--
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces. You can then visit the site at http://localhost:8080/
-- which will bring up Zend Framework welcome page.
+CREATE TABLE `tb0104_playoff` (
+  `tb0104_id` bigint(20) NOT NULL,
+  `tb0104_tb0101_id1` bigint(20) NOT NULL DEFAULT '0',
+  `tb0104_tb0101_id2` bigint(20) NOT NULL DEFAULT '0',
+  `tb0104_score1` int(11) NOT NULL DEFAULT '0',
+  `tb0104_score2` int(11) NOT NULL DEFAULT '0',
+  `tb0104_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-**Note:** The built-in CLI server is *for development only*.
+-- --------------------------------------------------------
 
-## Development mode
+--
+-- Table structure for table `tb0105_final`
+--
 
-The skeleton ships with [zf-development-mode](https://github.com/zfcampus/zf-development-mode)
-by default, and provides three aliases for consuming the script it ships with:
+CREATE TABLE `tb0105_final` (
+  `tb0105_id` bigint(20) NOT NULL,
+  `tb0105_tb0101_id1` bigint(20) NOT NULL DEFAULT '0',
+  `tb0105_tb0101_id2` bigint(20) NOT NULL DEFAULT '0',
+  `tb0105_score1` int(11) NOT NULL DEFAULT '0',
+  `tb0105_score2` int(11) NOT NULL DEFAULT '0',
+  `tb0105_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-```bash
-$ composer development-enable  # enable development mode
-$ composer development-disable # disable development mode
-$ composer development-status  # whether or not development mode is enabled
-```
+--
+-- Indexes for dumped tables
+--
 
-You may provide development-only modules and bootstrap-level configuration in
-`config/development.config.php.dist`, and development-only application
-configuration in `config/autoload/development.local.php.dist`. Enabling
-development mode will copy these files to versions removing the `.dist` suffix,
-while disabling development mode will remove those copies.
+--
+-- Indexes for table `tb0101_teams`
+--
+ALTER TABLE `tb0101_teams`
+  ADD PRIMARY KEY (`tb0101_id`),
+  ADD KEY `tb0101_group` (`tb0101_group`),
+  ADD KEY `tb0101_created` (`tb0101_created`),
+  ADD KEY `tb0101_name` (`tb0101_name`) USING BTREE;
 
-Development mode is automatically enabled as part of the skeleton installation process. 
-After making changes to one of the above-mentioned `.dist` configuration files you will
-either need to disable then enable development mode for the changes to take effect,
-or manually make matching updates to the `.dist`-less copies of those files.
+--
+-- Indexes for table `tb0102_matches`
+--
+ALTER TABLE `tb0102_matches`
+  ADD PRIMARY KEY (`tb0102_id`),
+  ADD KEY `tb0102_tb0101_id1` (`tb0102_tb0101_id1`),
+  ADD KEY `tb0102_tb0101_id2` (`tb0102_tb0101_id2`),
+  ADD KEY `tb0102_score2` (`tb0102_score2`),
+  ADD KEY `tb0102_score1` (`tb0102_score1`),
+  ADD KEY `tb0102_created` (`tb0102_created`);
 
-## Running Unit Tests
+--
+-- Indexes for table `tb0103_playoff`
+--
+ALTER TABLE `tb0103_playoff`
+  ADD PRIMARY KEY (`tb0103_id`),
+  ADD KEY `tb0102_tb0101_id1` (`tb0103_tb0101_id`),
+  ADD KEY `tb0102_score1` (`tb0103_score`),
+  ADD KEY `tb0102_created` (`tb0103_created`);
 
-To run the supplied skeleton unit tests, you need to do one of the following:
+--
+-- Indexes for table `tb0104_playoff`
+--
+ALTER TABLE `tb0104_playoff`
+  ADD PRIMARY KEY (`tb0104_id`),
+  ADD KEY `tb0102_tb0101_id1` (`tb0104_tb0101_id1`),
+  ADD KEY `tb0102_tb0101_id2` (`tb0104_tb0101_id2`),
+  ADD KEY `tb0102_score2` (`tb0104_score2`),
+  ADD KEY `tb0102_score1` (`tb0104_score1`),
+  ADD KEY `tb0102_created` (`tb0104_created`);
 
-- During initial project creation, select to install the MVC testing support.
-- After initial project creation, install [zend-test](https://zendframework.github.io/zend-test/):
+--
+-- Indexes for table `tb0105_final`
+--
+ALTER TABLE `tb0105_final`
+  ADD PRIMARY KEY (`tb0105_id`),
+  ADD KEY `tb0102_tb0101_id1` (`tb0105_tb0101_id1`),
+  ADD KEY `tb0102_tb0101_id2` (`tb0105_tb0101_id2`),
+  ADD KEY `tb0102_score2` (`tb0105_score2`),
+  ADD KEY `tb0102_score1` (`tb0105_score1`),
+  ADD KEY `tb0102_created` (`tb0105_created`);
 
-  ```bash
-  $ composer require --dev zendframework/zend-test
-  ```
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
-Once testing support is present, you can run the tests using:
+--
+-- AUTO_INCREMENT for table `tb0101_teams`
+--
+ALTER TABLE `tb0101_teams`
+  MODIFY `tb0101_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
-```bash
-$ ./vendor/bin/phpunit
-```
+--
+-- AUTO_INCREMENT for table `tb0102_matches`
+--
+ALTER TABLE `tb0102_matches`
+  MODIFY `tb0102_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
-If you need to make local modifications for the PHPUnit test setup, copy
-`phpunit.xml.dist` to `phpunit.xml` and edit the new file; the latter has
-precedence over the former when running tests, and is ignored by version
-control. (If you want to make the modifications permanent, edit the
-`phpunit.xml.dist` file.)
+--
+-- AUTO_INCREMENT for table `tb0103_playoff`
+--
+ALTER TABLE `tb0103_playoff`
+  MODIFY `tb0103_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
-## Using Vagrant
+--
+-- AUTO_INCREMENT for table `tb0104_playoff`
+--
+ALTER TABLE `tb0104_playoff`
+  MODIFY `tb0104_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
-This skeleton includes a `Vagrantfile` based on ubuntu 16.04 (bento box)
-with configured Apache2 and PHP 7.0. Start it up using:
-
-```bash
-$ vagrant up
-```
-
-Once built, you can also run composer within the box. For example, the following
-will install dependencies:
-
-```bash
-$ vagrant ssh -c 'composer install'
-```
-
-While this will update them:
-
-```bash
-$ vagrant ssh -c 'composer update'
-```
-
-While running, Vagrant maps your host port 8080 to port 80 on the virtual
-machine; you can visit the site at http://localhost:8080/
-
-> ### Vagrant and VirtualBox
->
-> The vagrant image is based on ubuntu/xenial64. If you are using VirtualBox as
-> a provider, you will need:
->
-> - Vagrant 1.8.5 or later
-> - VirtualBox 5.0.26 or later
-
-For vagrant documentation, please refer to [vagrantup.com](https://www.vagrantup.com/)
-
-## Using docker-compose
-
-This skeleton provides a `docker-compose.yml` for use with
-[docker-compose](https://docs.docker.com/compose/); it
-uses the `Dockerfile` provided as its base. Build and start the image using:
-
-```bash
-$ docker-compose up -d --build
-```
-
-At this point, you can visit http://localhost:8080 to see the site running.
-
-You can also run composer from the image. The container environment is named
-"zf", so you will pass that value to `docker-compose run`:
-
-```bash
-$ docker-compose run zf composer install
-```
-
-## Web server setup
-
-### Apache setup
-
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
-
-```apache
-<VirtualHost *:80>
-    ServerName zfapp.localhost
-    DocumentRoot /path/to/zfapp/public
-    <Directory /path/to/zfapp/public>
-        DirectoryIndex index.php
-        AllowOverride All
-        Order allow,deny
-        Allow from all
-        <IfModule mod_authz_core.c>
-        Require all granted
-        </IfModule>
-    </Directory>
-</VirtualHost>
-```
-
-### Nginx setup
-
-To setup nginx, open your `/path/to/nginx/nginx.conf` and add an
-[include directive](http://nginx.org/en/docs/ngx_core_module.html#include) below
-into `http` block if it does not already exist:
-
-```nginx
-http {
-    # ...
-    include sites-enabled/*.conf;
-}
-```
-
-
-Create a virtual host configuration file for your project under `/path/to/nginx/sites-enabled/zfapp.localhost.conf`
-it should look something like below:
-
-```nginx
-server {
-    listen       80;
-    server_name  zfapp.localhost;
-    root         /path/to/zfapp/public;
-
-    location / {
-        index index.php;
-        try_files $uri $uri/ @php;
-    }
-
-    location @php {
-        # Pass the PHP requests to FastCGI server (php-fpm) on 127.0.0.1:9000
-        fastcgi_pass   127.0.0.1:9000;
-        fastcgi_param  SCRIPT_FILENAME /path/to/zfapp/public/index.php;
-        include fastcgi_params;
-    }
-}
-```
-
-Restart the nginx, now you should be ready to go!
-
-## QA Tools
-
-The skeleton does not come with any QA tooling by default, but does ship with
-configuration for each of:
-
-- [phpcs](https://github.com/squizlabs/php_codesniffer)
-- [phpunit](https://phpunit.de)
-
-Additionally, it comes with some basic tests for the shipped
-`Application\Controller\IndexController`.
-
-If you want to add these QA tools, execute the following:
-
-```bash
-$ composer require --dev phpunit/phpunit squizlabs/php_codesniffer zendframework/zend-test
-```
-
-We provide aliases for each of these tools in the Composer configuration:
-
-```bash
-# Run CS checks:
-$ composer cs-check
-# Fix CS errors:
-$ composer cs-fix
-# Run PHPUnit tests:
-$ composer test
-```
-# mogotestapp
+--
+-- AUTO_INCREMENT for table `tb0105_final`
+--
+ALTER TABLE `tb0105_final`
+  MODIFY `tb0105_id` bigint(20) NOT NULL AUTO_INCREMENT;
+COMMIT;
