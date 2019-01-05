@@ -1,0 +1,43 @@
+<div class="jumbotron">
+	<h1><span class="zf-green">T</span>eams</h1>
+<?php
+if($this->teams) echo $this->partial('application/index/_teams', ['teams'=>$this->teams]);
+else {?>
+	<div class="alert alert-info">
+		Please generate teams by <span class="label label-default">Team</span> button.
+	</div>
+<?php }?>
+</div>
+
+<div class="jumbotron">
+	<h1><span class="zf-green">M</span>atches</h1>
+<?php
+if($this->teams&&$this->matches) echo $this->partial('application/index/_matches', ['teams'=>$this->teams,'matches'=>$this->matches]);
+else {?>
+	<div class="alert alert-info">
+		Please generate matches by <span class="label label-default">Team</span> and <span class="label label-default">Matches</span> buttons.
+	</div>
+<?php }?>
+</div>
+
+<div class="jumbotron">
+	<h1><span class="zf-green">P</span>lay Off <small>best plays against worst</small></h1>
+<?php
+if($this->teams&&$this->playOff&&$this->playOffResult) echo $this->partial('application/index/_playoff', ['teams'=>$this->teams,'playOff'=>$this->playOff,'playOffResult'=>$this->playOffResult]);
+else {?>
+	<div class="alert alert-info">
+		Please generate play off by <span class="label label-default">Team</span>, <span class="label label-default">Matches</span> and <span class="label label-default">Play Off</span> buttons.
+	</div>
+<?php }?>
+</div>
+
+<div class="jumbotron">
+	<h1><span class="zf-green">F</span>inal</h1>
+<?php
+if($this->teams&&$this->final) echo $this->partial('application/index/_final', ['teams'=>$this->teams,'final'=>$this->final]);
+else {?>
+	<div class="alert alert-info">
+		Please generate final by <span class="label label-default">Team</span>, <span class="label label-default">Matches</span>, <span class="label label-default">Play Off</span> and <span class="label label-default">Final</span> buttons.
+	</div>
+<?php }?>
+</div>
