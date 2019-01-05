@@ -1,3 +1,6 @@
+# http://f1.asd.kz
+
+
 CREATE TABLE `tb0101_teams` (
   `tb0101_id` bigint(20) NOT NULL,
   `tb0101_name` varchar(50) NOT NULL DEFAULT '',
