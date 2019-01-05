@@ -1,4 +1,4 @@
-# http://f1.asd.kz
+# http://f1.asd.kz 195.210.46.17
 
 
 CREATE TABLE `tb0101_teams` (
